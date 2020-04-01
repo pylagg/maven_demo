@@ -10,6 +10,13 @@
   <properties>
 		<spring.version>4.0.1.RELEASE</spring.version>
 	</properties>
+	<distributionManagement>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>DESKTOP-U44A200-snapshots</name>
+        <url>http://localhost:8081/artifactory/libs-snapshot</url>
+    </snapshotRepository>
+</distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
