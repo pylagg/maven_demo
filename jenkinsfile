@@ -7,6 +7,15 @@ pipeline{
                 	url: 'https://github.com/pylagg/maven_demo.git'
                   }
               }
+	      stage('Build Stage')
+		{
+			steps{
+				withMaven(maven : 'maven3.6'){
+				 bat 'mvn package'
+				}
+			}
+		}
+		
 		stage('Compile Stage')
 		{
 			steps{
@@ -23,15 +32,14 @@ pipeline{
 				}
 			}
 		}
-		stage('Build Stage')
-		{
-			steps{
-				withMaven(maven : 'maven3.6'){
-				 bat 'mvn package'
-				}
-			}
-		}
-		
+		  stage('Code Quality') {
+                   steps {
+                          withSonarQubeEnv('sonarscan') {
+                          bat 'sonar.projectKey=pipeline_1'
+                                       }
+                               
+                           }
+                        }
          	
 	}
 }
