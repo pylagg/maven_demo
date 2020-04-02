@@ -37,7 +37,7 @@ pipeline{
             steps {
                 withSonarQubeEnv('sonar') {
                     withMaven(maven:'maven3.6') {
-                        sh 'mvn clean package sonar:sonar'
+                        bat 'mvn clean package sonar:sonar'
                     }
                 }
             }
