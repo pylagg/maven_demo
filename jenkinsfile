@@ -32,14 +32,7 @@ pipeline{
 				}
 			}
 		}
-		  stage('Code Quality') {
-                    steps {
-                withSonarQubeEnv('sonarscan') {
-                        bat 'mvn clean package sonar:sonar'
-                    }
-                }
-            }
-                        
+		                       
          	
 	}
 }
