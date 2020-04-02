@@ -34,7 +34,7 @@ pipeline{
 		}
 		  stage('Code Quality') {
                    steps {
-                          withSonarQubeEnv('sonarscan') {
+                          withSonarQubeEnv('sonar') {
                           bat 'sonar.projectKey=pipeline_1'
                                        }
                                
