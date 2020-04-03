@@ -1,5 +1,8 @@
 pipeline{
 	agent any
+	tools{
+	maven 'maven3.6'
+	}
 	    stages {
         	stage("Code Checkout") {
                      steps {
@@ -10,26 +13,20 @@ pipeline{
 	      stage('Build Stage')
 		{
 			steps{
-				withMaven(maven : 'maven3.6'){
-				 bat 'mvn package'
-				}
+				bat 'mvn package'
 			}
 		}
 		
 		stage('Compile Stage')
 		{
 			steps{
-				withMaven(maven : 'maven3.6'){
 				 bat 'mvn clean compile'
-				}
 			}
 		}
 		stage('Testing Stage')
 		{
 			steps{
-				withMaven(maven : 'maven3.6'){
 				 bat 'mvn test'
-				}
 			}
 		}
 		                       
@@ -37,9 +34,7 @@ pipeline{
 		{
             		steps {
                 		withSonarQubeEnv('sonar') {
-                    			withMaven(maven:'maven3.6') {
-                        		bat 'mvn clean package sonar:sonar'
-                    			}
+                                     		bat 'mvn clean package sonar:sonar'
                 		}
             		}
         	}                      
