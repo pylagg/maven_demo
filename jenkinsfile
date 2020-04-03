@@ -59,7 +59,6 @@ pipeline{
              		body: "Something is wrong with ${env.BUILD_URL}"
     		}
 		success{
-			archiveArtifacts 'maven_artifact'
       			  mail to: 'pk1932ag@gmail.com',
              		subject: "Success Pipeline: ${currentBuild.fullDisplayName}",
              		body: "Congratulations ${env.BUILD_URL}"
