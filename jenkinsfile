@@ -57,6 +57,12 @@ pipeline{
          						]
     					}'''
 					)
+			rtMavenDeployer (
+    				id: 'deployer-unique-id',
+    				serverId: 'artifactory',
+    				releaseRepo: 'maven_artifact',
+    				snapshotRepo: 'maven_artifact',
+				)
 			}
 		}
 		      
