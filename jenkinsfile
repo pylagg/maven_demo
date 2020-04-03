@@ -41,7 +41,7 @@ pipeline{
 		stage('Deploy artifact')
 		{
 			steps{
-				 rtMavenDeployer (
+				artifactoryUpload (
     				id: 'deployer-unique-id',
     				serverId: 'artifactory',
     				releaseRepo: 'maven_artifact',
