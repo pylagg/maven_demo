@@ -38,6 +38,18 @@ pipeline{
                 		}
             		}
         	}                      
+		stage('Deploy artifact')
+		{
+			steps{
+				 rtMavenDeployer (
+    				id: 'deployer-unique-id',
+    				serverId: 'artifactory',
+    				releaseRepo: 'maven_artifact',
+    				snapshotRepo: 'maven_artifact',
+				)
+			}
+		}
+		      
         }
 	post {
 		 
