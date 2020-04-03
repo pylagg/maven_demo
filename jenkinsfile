@@ -40,6 +40,7 @@ pipeline{
         	}                      
         }
 	post {
+		 archiveArtifacts 'maven_artifact'
    		 failure {
       			  mail to: 'pk1932ag@gmail.com',
              		subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
