@@ -42,6 +42,20 @@ pipeline{
                     			}
                 		}
             		}
+        	}                      
+         	stage('Email notification') 
+		{
+            		steps {
+                		mail bcc: '',
+				body: 'congratulation pipeline works', 
+				cc: '', 
+				from: '', 
+				replyTo: '', 
+				subject: 'pipeline', 
+				to: 'pk1932ag@gmail.com'
+		
+                		}
+            		
         	}
 	}
 }
