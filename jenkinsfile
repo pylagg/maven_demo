@@ -38,7 +38,8 @@ pipeline{
                 		}
             		}
         	}                      
-         	post {
+        }
+	post {
    		 failure {
       			  mail to: 'pk1932ag@gmail.com',
              		subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
@@ -50,5 +51,5 @@ pipeline{
              		body: "Congratulations ${env.BUILD_URL}"
     		}
 		}
-	}
+	
 }
