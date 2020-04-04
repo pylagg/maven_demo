@@ -1,7 +1,7 @@
 pipeline{
 	agent any
-	def tomcatWeb='C:\Users\Payal\Software\New folder\apache-tomcat-8.5.53\webapps'
-	def tomcatBin='C:\Users\Payal\Software\New folder\apache-tomcat-8.5.53\bin'
+	def tomcatWeb='C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps'
+	def tomcatBin='C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\bin'
 	tools{
 	maven 'maven3.6'
 	}
@@ -63,12 +63,12 @@ pipeline{
 		}
 		stage('Deploy to tomcat')
 		{
-			bat "copy maven_artifact/HelloWorld.war /"${tomcatWeb}/HelloWorld.war""
+			bat "copy maven_artifact\\HelloWorld.war \"${tomcatWeb}\\HelloWorld.war\""
 		}
 		      
 		stage('Start tomcat')
 		{
-			bat "${tomcatBin}/startup.bat"
+			bat "${tomcatBin}\\startup.bat"
 		}
 		      
         }
