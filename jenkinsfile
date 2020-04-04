@@ -62,7 +62,7 @@ pipeline{
 		stage('Deploy to tomcat')
 		{
 			steps{
-			bat "copy maven_artifact\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\\HelloWorld.war\""
+			bat "copy maven_artifact\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
 			}
 		}
 		      
