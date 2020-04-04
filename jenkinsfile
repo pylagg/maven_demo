@@ -64,14 +64,7 @@ pipeline{
 			steps{
 			bat "copy target\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
 			}
-		}
-		stage('Start tomcat')
-		{
-			steps{
-			bat "C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\bin\\startup.bat"
-			}
-		}      
-		
+		}		
         }
 	post {
 		 
