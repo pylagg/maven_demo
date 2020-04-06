@@ -37,7 +37,14 @@ pipeline{
                                      		bat 'mvn clean package sonar:sonar'
                 		}
             		}
-        	}                      
+        	}            
+		stage('SonarQube quality gate') 
+		{
+            		steps {
+                		 waitForQualityGate abortPipeline: true
+                		}
+            		}
+        	}       
 		stage('Deploy artifact')
 		{
 			steps{
