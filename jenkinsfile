@@ -42,7 +42,6 @@ pipeline{
 		{
             		steps {
                 		 waitForQualityGate abortPipeline: true
-                		}
             		}
         	}       
 		stage('Deploy artifact')
