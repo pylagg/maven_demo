@@ -35,13 +35,6 @@
 			<version>${spring.version}</version>
 		</dependency>
   </dependencies>
-<distributionManagement>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>DESKTOP-U44A200-snapshots</name>
-        <url>http://localhost:8081/artifactory/libs-snapshot</url>
-    </snapshotRepository>
-</distributionManagement>
   <build>
     <finalName>HelloWorld</finalName>
   </build>
