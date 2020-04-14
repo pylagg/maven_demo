@@ -76,8 +76,8 @@ pipeline{
 stage('Building image') {
   agent {label 'slave_docker'}
   steps{
-  	unstash : 'war'
       script {
+      unstash : 'war'
        dockerImage= docker.build registry + ":$BUILD_NUMBER"
       }
     }
