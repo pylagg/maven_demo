@@ -63,7 +63,7 @@ pipeline{
 		{
 			steps{
 			bat 'mvn deploy'
-			stash name: 'war', includes: '/**.war'
+			stash name: 'war', includes: '**/*.war'
 			
 			}
 		}
