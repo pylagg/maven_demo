@@ -3,10 +3,6 @@ pipeline{
 	tools{
 	maven 'MAVEN_HOME'
 	}
-	environment {
-    	registry = "pylagg/first_repo"
-	registryCredential = 'docker'
-	}
 	    stages {
         	stage("Code Checkout") {
                      steps {
