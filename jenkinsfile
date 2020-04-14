@@ -3,6 +3,10 @@ pipeline{
 	tools{
 	maven 'MAVEN_HOME'
 	}
+	environment {
+    	registry = "pylagg/first_repo"
+	registryCredential = 'docker'
+}
 	    stages {
         	stage("Code Checkout") {
                      steps {
@@ -67,6 +71,24 @@ pipeline{
 			}
 		}		
         }
+	stage('Building image') {
+    steps{
+      script {
+       dockerImage= docker.build registry + ":$BUILD_NUMBER"
+      }
+    }
+  } 
+stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+}
+}
 	post {
 		 
    		 failure {
