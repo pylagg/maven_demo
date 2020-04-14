@@ -86,6 +86,9 @@ pipeline{
     			}
   		}
 		stage('Deploy Image') {
+		agent {
+			 label 'slave_docker'
+			 }
  			steps{
         			script {
           				docker.withRegistry( '', registryCredential ) {
