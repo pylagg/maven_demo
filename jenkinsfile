@@ -38,7 +38,7 @@ pipeline{
                 		}
             		}
         	}    
-		stage('Deploy artifact')
+		stage('Deploy artifact using maven')
 		{
 			steps{
 			bat 'mvn deploy'
