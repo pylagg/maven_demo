@@ -37,7 +37,13 @@ pipeline{
                                      		bat 'mvn clean package sonar:sonar'
                 		}
             		}
-        	}            
+        	}    
+		stage('Deploy artifact')
+		{
+			steps{
+			bat 'mvn deploy'
+			}
+		}
 		       
 		stage('Deploy artifact')
 		{
