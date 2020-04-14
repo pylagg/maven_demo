@@ -35,6 +35,18 @@
 			<version>${spring.version}</version>
 		</dependency>
   </dependencies>
+	<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>DESKTOP-U44A200-releases</name>
+        <url>http://localhost:8081/artifactory/maven_artifact</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>DESKTOP-U44A200-snapshots</name>
+        <url>http://localhost:8081/artifactory/maven_artifact</url>
+    </snapshotRepository>
+</distributionManagement>
   <build>
     <finalName>HelloWorld</finalName>
   </build>
