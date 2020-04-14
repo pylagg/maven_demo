@@ -47,15 +47,16 @@
         <url>http://localhost:8081/artifactory/pipeline_artifact</url>
     </snapshotRepository>
 </distributionManagement>
-	<plugin>
+
+  <build>
+	  	<plugins><plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-surefire-plugin</artifactId>
     <version>2.12.4</version>
     <configuration>
         <testFailureIgnore>true</testFailureIgnore>
     </configuration>
-</plugin
-  <build>
+	  </plugin></plugins>
     <finalName>HelloWorld</finalName>
   </build>
 </project>
