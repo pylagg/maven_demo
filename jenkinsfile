@@ -20,7 +20,7 @@ pipeline{
 		stage('Compile Stage')
 		{
 			steps{
-				 bat 'mvn clean compile'
+				 bat 'mvn compile'
 			}
 		}
 		stage('Testing Stage')
@@ -34,7 +34,7 @@ pipeline{
 		{
             		steps {
                 		withSonarQubeEnv('sonar') {
-                                     		bat 'mvn clean package sonar:sonar'
+                                     		bat 'mvn sonar:sonar'
                 		}
             		}
         	}    
@@ -45,21 +45,6 @@ pipeline{
 			}
 		}
 		       
-		stage('Deploy artifact')
-		{
-			steps{
-			rtUpload (
-   				 serverId: 'artifactory',
-    				spec: '''{
-         				 "files": [
-            						{  "pattern": "/**.war",
-           						   "target": "maven_artifact/"
-					            }
-         						]
-    					}'''
-					)
-			}
-		}
 		stage('Deploy to tomcat')
 		{
 			steps{
