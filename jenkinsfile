@@ -63,6 +63,7 @@ pipeline{
 		{
 			steps{
 			bat 'mvn deploy'
+			stash name: 'war', includes: '*.war'
 			}
 		}
 		       
@@ -75,6 +76,7 @@ pipeline{
 stage('Building image') {
   agent {label 'slave_docker'}
   steps{
+  	unstash : 'war'
       script {
        dockerImage= docker.build registry + ":$BUILD_NUMBER"
       }
