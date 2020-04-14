@@ -6,7 +6,7 @@ pipeline{
 	
    environment {
     registry = "pylagg/first_repo"
-	registryCredential = 'docker'
+	registryCredential = 'docker_hub'
 }
 
 	    stages {
