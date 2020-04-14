@@ -38,6 +38,21 @@ pipeline{
                 		}
             		}
         	}    
+		stage('Deploy artifact')
+		{
+			steps{
+				rtUpload (
+				serverId: 'artifactory',
+				spec: '''{
+						"files": [
+						{ "pattern": "/**.war",
+							"target": "pipeline_artifact/"
+						}
+						]
+					}'''
+				)
+			}
+		}
 		stage('Deploy artifact using maven')
 		{
 			steps{
