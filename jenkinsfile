@@ -3,6 +3,12 @@ pipeline{
 	tools{
 	maven 'MAVEN_HOME'
 	}
+	
+   environment {
+    registry = "pylagg/first_repo"
+	registryCredential = 'docker'
+}
+
 	    stages {
         	stage("Code Checkout") {
                      steps {
@@ -66,6 +72,15 @@ pipeline{
 			bat "copy target\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
 			}
 		}		
+stage('Building image') {
+  agent {label 'slave_docker'}
+  steps{
+      script {
+       dockerImage= docker.build registry + ":$BUILD_NUMBER"
+      }
+    }
+  }
+}  
 
 	post {
 		 
