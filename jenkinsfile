@@ -68,6 +68,14 @@ pipeline{
 				sh 'docker build -t pylagg/first_repo:image1 .'
 			}
   		}
+		stage('Deploy image') {
+			agent {
+			label 'slave_docker'
+			}
+			steps{
+				sh 'docker push pylagg/first_repo:image1'
+			}
+		}
 		
   }  
 
