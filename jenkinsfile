@@ -86,11 +86,7 @@ pipeline{
 			 label 'slave_docker'
 			 }
 			 steps{
-				script{
-					docker.withRegistry('',registryCredential){
-						dockerImage.withRun('-p 80:8080')
-					}
-				}
+			 	sh 'docker run -d -p 81:8080 pylagg/first_repo:%BUILD_NUMBER%'
     			}
   		}
   }  
