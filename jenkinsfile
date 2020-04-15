@@ -80,9 +80,7 @@ pipeline{
 			 }
 			 steps{
 				unstash 'war'
-				script{
-					dockerImage=docker.build registry +":$BUILD_NUMBER"
-				}
+				sh 'docker build -t image1:one war'
     			}
   		}
 		stage('Deploy Image') {
@@ -90,19 +88,15 @@ pipeline{
 			 label 'slave_docker'
 			 }
  			steps{
-        			script {
-          				docker.withRegistry( '', registryCredential ) {
-            					dockerImage.push()
-          				}
-        			}
-      			}
+        			sh 'docker push pylagg/first_repo:one'
+			}
     		}	
 		stage('running container') {
  			 agent {
 			 label 'slave_docker'
 			 }
 			 steps{
-				sh 'docker run -p 80:8080 "$IMAGE_ID"'
+				sh 'docker run -p 80:8080 image1:one'
     			}
   		}
   }  
