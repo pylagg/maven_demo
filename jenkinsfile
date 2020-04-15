@@ -65,7 +65,7 @@ pipeline{
 			 }
 			 steps{
 				unstash 'war'
-				sh 'docker build -t pylagg/first_repo:image1 .'
+				sh 'docker build -t pylagg/first_repo:image2 .'
 			}
   		}
 		stage('Deploy image') {
@@ -73,7 +73,15 @@ pipeline{
 			label 'slave_docker'
 			}
 			steps{
-				sh 'docker push pylagg/first_repo:image1'
+				sh 'docker push pylagg/first_repo:image2'
+			}
+		}
+		stage('Run container'){
+			agent {
+			label 'slave_docker'
+			}
+			steps{
+				sh 'docker run -d -p 81:8080 pylagg/first_repo:image2'
 			}
 		}
 		
