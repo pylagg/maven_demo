@@ -79,10 +79,8 @@ pipeline{
 			 label 'slave_docker'
 			 }
 			 steps{
-				  unstash 'war'
-      					script {
-       					dockerImage= docker.build registry + ":$BUILD_NUMBER"
-      					}
+				unstash 'war'
+				sh 'docker build -t First_image'
     			}
   		}
 		stage('Deploy Image') {
