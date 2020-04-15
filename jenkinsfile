@@ -102,7 +102,7 @@ pipeline{
 			 label 'slave_docker'
 			 }
 			 steps{
-				sh 'docker run -p 80:8080 $IMAGE_ID'
+				sh 'docker run -p 80:8080 "$IMAGE_ID"'
     			}
   		}
   }  
