@@ -80,7 +80,9 @@ pipeline{
 			 }
 			 steps{
 				unstash 'war'
-				sh 'docker build -t first_image.'
+				script{
+					dockerImage=docker.build registry +":$BUILD_NUMBER"
+				}
     			}
   		}
 		stage('Deploy Image') {
