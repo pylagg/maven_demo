@@ -96,7 +96,15 @@ pipeline{
           				}
         			}
       			}
-    		}
+    		}	
+		stage('running container') {
+ 			 agent {
+			 label 'slave_docker'
+			 }
+			 steps{
+				sh 'docker run -p 80:8080 ":$BUILD_NUMBER"'
+    			}
+  		}
   }  
 
 	post {
