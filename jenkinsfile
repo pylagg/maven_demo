@@ -81,6 +81,7 @@ pipeline{
 			label 'slave_docker'
 			}
 			steps{
+				sh 'docker stop $(docker ps -a -q)'
 				sh 'docker run -d -p 81:8080 pylagg/first_repo:image2'
 			}
 		}
