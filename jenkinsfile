@@ -74,7 +74,7 @@ pipeline{
 			 label 'slave_docker'
 			 }
  			steps{
-        			sh 'docker push registry :%BUILD_NUMBER%'
+        			sh 'docker push %registry%:%BUILD_NUMBER%'
 			}
     		}	
 		stage('running container') {
@@ -82,7 +82,7 @@ pipeline{
 			 label 'slave_docker'
 			 }
 			 steps{
-				sh 'docker run -p 80:8080 registry :%BUILD_NUMBER%'
+				sh 'docker run -p 80:8080 %registry%:%BUILD_NUMBER%'
     			}
   		}
   }  
