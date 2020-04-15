@@ -1,5 +1,4 @@
-FROM maven:3.5-jdk-8 AS build  
-COPY src /usr/src/app/src  
-COPY pom.xml /usr/src/app  
-RUN mvn -f /usr/src/app/pom.xml clean package
-
+FROM tomcat:8.5-alpine
+ADD target/*.war /usr/local/tomcat/webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
