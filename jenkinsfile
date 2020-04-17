@@ -81,10 +81,10 @@ pipeline{
 			label 'slave_docker'
 			}
 			steps{
-				sh 'if [ "$(docker ps -aq -f name=con1)" ]; then'
-    				sh 'docker stop con1'
-        			sh 'docker rm con1'
-				sh 'fi'
+				sh 'if [ "$(docker ps -aq -f name=con1)" ]; then
+					docker stop con1
+        				docker rm con1
+				fi'
 				sh 'docker run -d --name con1 -p 80:8080 pylagg/first_repo":${BUILD_NUMBER}"'
 			}
 		}
