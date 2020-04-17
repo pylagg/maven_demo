@@ -87,7 +87,6 @@ pipeline{
 					docker rm con1
 					fi
         				'''.stripIndent())
-				}
 				sh 'docker run -d --name con1 -p 80:8080 pylagg/first_repo":${BUILD_NUMBER}"'
 			}
 		}
