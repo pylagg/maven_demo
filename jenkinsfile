@@ -65,7 +65,7 @@ pipeline{
 			 }
 			 steps{
 				unstash 'war'
-				sh 'docker build -t pylagg/first_repo:image2 .'
+				sh 'docker build -t pylagg/first_repo:$(BUILD_NUMBER) .'
 			}
   		}
 		stage('Deploy image') {
@@ -73,7 +73,7 @@ pipeline{
 			label 'slave_docker'
 			}
 			steps{
-				sh 'docker push pylagg/first_repo:image2'
+				sh 'docker push pylagg/first_repo:$(BUILD_NUMBER)'
 			}
 		}
 		stage('Run container'){
@@ -81,7 +81,9 @@ pipeline{
 			label 'slave_docker'
 			}
 			steps{
-				sh 'docker run -d -p 81:8080 pylagg/first_repo:image2'
+				sh 'docker stop con1'
+				sh 'docker rm con1'
+				sh 'docker run -d --name con1 -p 80:8080 pylagg/first_repo:$(BUILD_NUMBER)'
 			}
 		}
 		
