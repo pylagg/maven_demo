@@ -91,6 +91,36 @@ pipeline{
 			}
 		}
 		
+/*stage('Deploy artifact')
+		{
+			steps{
+				rtUpload (
+				serverId: 'artifactory',
+				spec: '''{
+						"files": [
+						{ "pattern": "/**.war",
+							"target": "pipeline_artifact/"
+						}
+						]
+					}'''
+				)
+			}
+		}
+		script{
+				dockerImage=docker.build registry +":$BUILD_NUMBER"
+    			}
+		stage('Deploy Image') {
+		agent {
+			 label 'slave_docker'
+			 }
+ 			steps{
+				script{
+					docker.withRegistry('',registryCredential){
+						dockerImage.push()
+					}
+				}
+			}
+    		}	*/
   }  
 
 	post {
