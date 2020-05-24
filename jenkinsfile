@@ -36,7 +36,7 @@ pipeline{
 			}
 		}
 		                       
-         	stage('build && SonarQube analysis') 
+         	stage('SonarQube analysis') 
 		{
             		steps {
                 		withSonarQubeEnv('sonar') {
@@ -44,7 +44,7 @@ pipeline{
                 		}
             		}
         	}    
-		stage('Deploy artifact using maven')
+		stage('Artifactory')
 		{
 			steps{
 			bat 'mvn deploy'
@@ -59,7 +59,7 @@ pipeline{
 			bat "copy target\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
 			}
 		}		
-		stage('Building image') {
+		stage('Docker Image Build') {
  			 agent {
 			 label 'slave_docker'
 			 }
@@ -68,7 +68,7 @@ pipeline{
 				sh 'docker build -t pylagg/first_repo":${BUILD_NUMBER}" .'
 			}
   		}
-		stage('Deploy image') {
+		stage('Docker Hub Integration') {
 			agent {
 			label 'slave_docker'
 			}
@@ -76,7 +76,7 @@ pipeline{
 				sh 'docker push pylagg/first_repo":${BUILD_NUMBER}"'
 			}
 		}
-		stage('Run container'){
+		stage('Application Deployment'){
 			agent {
 			label 'slave_docker'
 			}
@@ -91,7 +91,7 @@ pipeline{
 			}
 		}
 		
-/*stage('Deploy artifact')
+/* stage('Deploy artifact')
 		{
 			steps{
 				rtUpload (
