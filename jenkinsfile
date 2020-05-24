@@ -61,7 +61,7 @@ pipeline{
 		}		
 		stage('Docker Image Build') {
  			 agent {
-			 label 'slave_docker'
+			 label 'docker_slave'
 			 }
 			 steps{
 				unstash 'war'
@@ -70,7 +70,7 @@ pipeline{
   		}
 		stage('Docker Hub Integration') {
 			agent {
-			label 'slave_docker'
+			label 'docker_slave'
 			}
 			steps{
 				sh 'docker push pylagg/first_repo":${BUILD_NUMBER}"'
@@ -78,7 +78,7 @@ pipeline{
 		}
 		stage('Application Deployment'){
 			agent {
-			label 'slave_docker'
+			label 'docker_slave'
 			}
 			steps{
 				sh( script: '''#!/bin/bash
