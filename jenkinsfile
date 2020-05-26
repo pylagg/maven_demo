@@ -76,7 +76,7 @@ pipeline{
 				sh 'docker push pylagg/first_repo":${BUILD_NUMBER}"'
 			}
 		}
-		stage('Application Deployment'){
+		stage('Run docker image'){
 			agent {
 			label 'docker_slave'
 			}
