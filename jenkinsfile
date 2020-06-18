@@ -10,6 +10,16 @@ pipeline{
 }
 
 	    stages {
+	    	stage("terraform") {
+			steps {
+				
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
+                      		{
+                      			sh '${env.Terraform}/terraform init'
+					sh 'terraform plan'
+				}
+			}
+		}
         	stage("Code Checkout") {
                      steps {
                 	git branch: 'master',
