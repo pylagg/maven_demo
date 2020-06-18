@@ -12,6 +12,9 @@ pipeline{
 
 	    stages {
 	    	stage("Terraform") {
+			agent {
+			 label 'docker_slave'
+			 }
 			steps {
 				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
                       		{
