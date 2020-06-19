@@ -15,6 +15,19 @@ pipeline{
                 )
     	}
 	stages {
+		stage("Delete infrastructure") {
+                	agent {
+			 	label 'docker_slave'
+			}
+			when {
+                        	expression { params.Action_To_Perform == 'Delete Infrastructure' }
+                  	}
+                	steps {
+                    		withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+		                        sh 'terraform destroy -auto-approve'
+                		}
+                	}
+		}
 		stage("Code Checkout") {
                 	steps {
                 		git branch: 'master',
