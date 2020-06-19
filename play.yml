@@ -1,7 +1,7 @@
 ---
 - hosts: all
-  become: yes
-  remote_user: /home/ubuntu
+  become: true
+  remote_user: ubuntu
   tasks:
   - name: Update and upgrade apt packages
     apt:
