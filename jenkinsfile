@@ -1,42 +1,31 @@
 pipeline{
 	agent any
 	tools{
-	maven 'MAVEN_HOME'
-	terraform 'Terraform'
+		maven 'MAVEN_HOME'
+		terraform 'Terraform'
 	}
-	
-   environment {
-    registry = "pylagg/first_repo"
-	registryCredential = 'docker_hub'
-}
-
-	    stages {
-	    	stage("Terraform") {
-			agent {
-			 label 'docker_slave'
-			 }
-			steps {
-				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
-                      		{
-                      			sh 'terraform init'
-					sh 'terraform plan'
-					sh 'terraform apply --auto-approve'
-				}
-			}
-		}
-        	stage("Code Checkout") {
-                     steps {
-                	git branch: 'master',
-                	url: 'https://github.com/pylagg/maven_demo.git'
-                  }
+	environment {
+		registry = "pylagg/first_repo"
+		registryCredential = 'docker_hub'
+	}
+	parameters {
+                choice(
+                       choices: ['Create Infrastructure' , 'Delete Infrastructure'],
+                       name: 'Action_To_Perform'
+                )
+    	}
+	stages {
+		stage("Code Checkout") {
+                	steps {
+                		git branch: 'master',
+                		url: 'https://github.com/pylagg/maven_demo.git'
+                  	}
               }
-	      stage('Build Stage')
-		{
+	      stage('Build Stage') {
 			steps{
 				bat 'mvn package'
 			}
 		}
-		
 		stage('Compile Stage')
 		{
 			steps{
@@ -48,8 +37,7 @@ pipeline{
 			steps{
 				 bat 'mvn test'
 			}
-		}
-		                       
+		}               
          	stage('SonarQube analysis') 
 		{
             		steps {
@@ -61,21 +49,19 @@ pipeline{
 		stage('Artifactory')
 		{
 			steps{
-			bat 'mvn deploy'
-			stash name: 'war', includes: '**/*.war'
-			
+				bat 'mvn deploy'
+				stash name: 'war', includes: '**/*.war'
 			}
 		}
-		       
 		stage('Deploy to tomcat')
 		{
 			steps{
-			bat "copy target\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
+				bat "copy target\\HelloWorld.war \"C:\\Users\\Payal\\Software\\New folder\\apache-tomcat-8.5.53\\webapps\""
 			}
 		}		
 		stage('Docker Image Build') {
  			 agent {
-			 label 'docker_slave'
+			 	label 'docker_slave'
 			 }
 			 steps{
 				unstash 'war'
@@ -84,7 +70,7 @@ pipeline{
   		}
 		stage('Docker Hub Integration') {
 			agent {
-			label 'docker_slave'
+				label 'docker_slave'
 			}
 			steps{
 				sh 'docker push pylagg/first_repo":${BUILD_NUMBER}"'
@@ -92,7 +78,7 @@ pipeline{
 		}
 		stage('Run docker image'){
 			agent {
-			label 'docker_slave'
+				label 'docker_slave'
 			}
 			steps{
 				sh( script: '''#!/bin/bash
@@ -103,6 +89,34 @@ pipeline{
         				'''.stripIndent())
 				sh 'docker run -d --name con1 -p 80:8080 pylagg/first_repo":${BUILD_NUMBER}"'
 			}
+		}
+		stage("Provision infrastructure") {
+ 			agent {
+			 	label 'docker_slave'
+			}
+			when {
+                        	expression { params.Action_To_Perform == 'Create Infrastructure' }
+                  	}
+                  	steps {
+                        	withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                     			sh 'terraform init'
+                      			sh 'terraform plan'
+                      			sh 'terraform apply -auto-approve'
+                  	        }
+                  	}
+            	}
+            	stage("Deleting infrastructure") {
+                	agent {
+			 	label 'docker_slave'
+			}
+			when {
+                        	expression { params.Action_To_Perform == 'Delete Infrastructure' }
+                  	}
+                	steps {
+                    		withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+		                        sh 'terraform destroy -auto-approve'
+                		}
+                	}
 		}
 		
 /* stage('Deploy artifact')
