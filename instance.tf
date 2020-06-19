@@ -21,7 +21,7 @@ resource "aws_instance" "init_p" {
 }
 resource "null_resource" "ModifyApplyAnsiblePlayBook" {
   provisioner "local-exec" {
-    command = " ansible-playbook -i ',${aws_instance.instance.public_ip}' --private-key ../../terra_key1 play.yml"
+    command = " ansible-playbook -i ',${aws_instance.instance.public_ip}' --private-key ../../key play.yml"
   }
 }
 
