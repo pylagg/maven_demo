@@ -4,7 +4,7 @@
   <groupId>com.p1</groupId>
   <artifactId>HelloWorld</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.3-SNAPSHOT</version>
   <name>HelloWorld Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
