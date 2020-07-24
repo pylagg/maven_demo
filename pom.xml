@@ -4,7 +4,7 @@
   <groupId>com.p1</groupId>
   <artifactId>HelloWorld</artifactId>
   <packaging>war</packaging>
-  <version>0.1.3-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <name>HelloWorld Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -36,16 +36,15 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-  </dependencies>
-<distributionManagement>
+  </dependencies><distributionManagement>
     <repository>
         <id>central</id>
-        <name>DESKTOP-U44A200-releases</name>
+        <name>payalaggarwal-releases</name>
         <url>http://localhost:8081/artifactory/pipeline_artifact</url>
     </repository>
     <snapshotRepository>
         <id>snapshots</id>
-        <name>DESKTOP-U44A200-snapshots</name>
+        <name>payalaggarwal-snapshots</name>
         <url>http://localhost:8081/artifactory/pipeline_artifact</url>
     </snapshotRepository>
 </distributionManagement>
