@@ -8,8 +8,10 @@
   <name>HelloWorld Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
+  		<maven.compiler.source>1.6</maven.compiler.source>
+  		<maven.compiler.target>1.6</maven.compiler.target>
 		<spring.version>4.0.1.RELEASE</spring.version>
-	</properties>
+</properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
